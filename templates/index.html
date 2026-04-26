@@ -7,21 +7,42 @@
 </head>
 <body>
 
-<header>
-    <h1>Cyber Rats 🐭🔐</h1>
-    <p>Segurança digital para empresas modernas</p>
+<header class="header">
+    <div class="container">
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Cyber Rats">
+        </div>
+
+        <nav class="menu">
+            <a href="#">Início</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#contato">Contato</a>
+        </nav>
+
+        <div class="actions">
+            <a href="#" class="login">Login</a>
+            <a href="#" class="btn">Fale conosco</a>
+        </div>
+
+    </div>
 </header>
 
 <section class="hero">
-    <h2>Protegemos seus dados contra ameaças digitais</h2>
+    <div class="hero-content">
+        <h1>Protegendo sua empresa contra ameaças digitais</h1>
+        <p>Soluções avançadas em cibersegurança para empresas modernas</p>
+        <a href="#" class="hero-btn">Fale com um especialista</a>
+    </div>
 </section>
 
-<section>
+<section id="sobre" class="section">
     <h2>Sobre nós</h2>
-    <p>Somos uma empresa especializada em cibersegurança, oferecendo soluções para proteção de dados e prevenção de ataques.</p>
+    <p>Somos especialistas em cibersegurança, oferecendo soluções completas para proteção de dados e prevenção de ataques.</p>
 </section>
 
-<section>
+<section id="servicos" class="section">
     <h2>Serviços</h2>
     <ul>
         <li>Análise de vulnerabilidades</li>
@@ -30,7 +51,7 @@
     </ul>
 </section>
 
-<section>
+<section id="contato" class="section">
     <h2>Contato</h2>
     <p>Email: contato@cyberrats.com</p>
 </section>

@@ -1,26 +1,136 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
     background: #0f172a;
     color: white;
 }
 
-header {
+/* CONTAINER GLOBAL */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* HEADER */
+.header {
     background: #020617;
-    padding: 20px;
-    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.hero {
-    padding: 60px;
-    text-align: center;
+/* LOGO */
+.logo img {
+    height: 40px;
+}
+
+/* MENU */
+.menu a {
+    margin: 0 15px;
+    color: #cbd5f5;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    color: #60a5fa;
+}
+
+/* ACTIONS (botões à direita) */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.login {
+    color: #cbd5f5;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn {
     background: linear-gradient(90deg, #0ea5e9, #6366f1);
+    padding: 10px 16px;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
 }
 
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* HERO SECTION */
+.hero {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    margin: 20px 0;
+    color: #94a3b8;
+}
+
+/* BOTÃO HERO */
+.hero-btn {
+    background: linear-gradient(90deg, #0ea5e9, #6366f1);
+    padding: 12px 20px;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    opacity: 0.85;
+}
+
+/* SEÇÕES GERAIS */
 section {
-    padding: 40px;
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: auto;
 }
 
-h1, h2 {
-    margin: 10px 0;
+h2 {
+    margin-bottom: 20px;
+}
+
+/* LISTA DE SERVIÇOS */
+ul {
+    list-style: none;
+}
+
+ul li {
+    margin-bottom: 10px;
+    color: #cbd5f5;
 }
