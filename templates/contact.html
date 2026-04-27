@@ -11,8 +11,8 @@
 <header class="header">
     <div class="container">
 
-        <div class="logo">
-            <h2>Cyber Rats 🐭🔐</h2>
+        <div class="logo-header">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Cyber Rats">
         </div>
 
         <a href="{{ url_for('home') }}" class="back-btn">← Voltar ao início</a>
@@ -23,8 +23,14 @@
 <section class="contact-section">
     <div class="contact-container">
 
+        <div class="contact-logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Cyber Rats">
+        </div>
+
         <h1>Fale com nossos especialistas</h1>
-        <p>Estamos prontos para ajudar sua empresa.</p>
+        <p class="contact-subtitle">
+            Estamos prontos para ajudar sua empresa a se proteger contra ameaças digitais.
+        </p>
 
         <form class="contact-form" method="POST" action="{{ url_for('contato') }}">
 

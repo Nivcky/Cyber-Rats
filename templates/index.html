@@ -8,30 +8,36 @@
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
     <div class="container">
 
         <div class="logo">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Cyber Rats">
+            <img src="{{ url_for('static', filename='img/logo_white.png') }}" alt="Cyber Rats">
         </div>
 
         <nav class="menu">
             <a href="{{ url_for('home') }}">Início</a>
             <a href="#sobre">Sobre</a>
             <a href="#servicos">Serviços</a>
-            <a href="{{ url_for('dashboard') }}">Monitoramento</a>
+
+            {% if session.get("logado") %}
+                <a href="{{ url_for('dashboard') }}">Monitoramento</a>
+            {% endif %}
         </nav>
 
         <div class="actions">
-            <a href="{{ url_for('login') }}" class="login">Login</a>
+            {% if session.get("logado") %}
+                <a href="{{ url_for('logout') }}" class="login">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login">Login</a>
+            {% endif %}
+
             <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
         </div>
 
     </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
     <div class="hero-content">
         <h1>Protegendo sua empresa contra ameaças digitais</h1>
@@ -39,12 +45,14 @@
 
         <div class="hero-actions">
             <a href="{{ url_for('contato') }}" class="hero-btn">Fale com um especialista</a>
-            <a href="{{ url_for('dashboard') }}" class="hero-secondary">Ver monitoramento</a>
+
+            {% if session.get("logado") %}
+                <a href="{{ url_for('dashboard') }}" class="hero-secondary">Ver monitoramento</a>
+            {% endif %}
         </div>
     </div>
 </section>
 
-<!-- SOBRE -->
 <section id="sobre" class="section">
     <h2>Sobre nós</h2>
     <p>
@@ -54,7 +62,6 @@
     </p>
 </section>
 
-<!-- SERVIÇOS -->
 <section id="servicos" class="section">
     <h2>Serviços</h2>
 
@@ -81,14 +88,12 @@
     </div>
 </section>
 
-<!-- CTA FINAL -->
 <section class="cta">
     <h2>Pronto para proteger sua empresa?</h2>
     <p>Fale com nossos especialistas e eleve seu nível de segurança digital.</p>
     <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
     <p>© 2026 Cyber Rats • Segurança Digital</p>
 </footer>

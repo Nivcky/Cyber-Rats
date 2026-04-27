@@ -14,9 +14,10 @@ body {
 
 /* CONTAINER */
 .container {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1300px;
     margin: auto;
-    padding: 15px 20px;
+    padding: 18px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -28,18 +29,36 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* LOGO */
-.logo img {
-    height: 50px;
+/* LOGO HEADER */
+.logo,
+.logo-header {
+    display: flex;
+    align-items: center;
+}
+
+.logo img,
+.logo-header img {
+    width: 155px;
+    height: auto;
     display: block;
+    object-fit: contain;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* MENU */
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
 .menu a {
-    margin: 0 15px;
     color: #cbd5f5;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     transition: 0.3s;
 }
 
@@ -52,26 +71,26 @@ body {
 .actions {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 }
 
 .login {
     color: #cbd5f5;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
 }
 
-/* BOTÕES PRINCIPAIS */
+/* BOTÕES */
 .btn,
 .hero-btn,
 .btn-login {
     display: inline-block;
     background: linear-gradient(90deg, #0ea5e9, #6366f1);
-    padding: 12px 18px;
-    border-radius: 8px;
+    padding: 14px 22px;
+    border-radius: 10px;
     color: white;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     transition: 0.3s;
     border: none;
     cursor: pointer;
@@ -83,7 +102,7 @@ body {
     opacity: 0.85;
 }
 
-/* BOTÃO VOLTAR AO INÍCIO - PADRÃO PARA TODAS AS TELAS */
+/* BOTÃO VOLTAR */
 .back-btn,
 a.back-btn {
     display: inline-flex;
@@ -106,10 +125,9 @@ a.back-btn:hover {
     background: rgba(14, 165, 233, 0.18);
     color: #93c5fd;
     border-color: #60a5fa;
-    text-decoration: none;
 }
 
-/* BARRA DO BOTÃO VOLTAR */
+/* TOP BAR */
 .top-bar {
     max-width: 1200px;
     margin: 20px auto;
@@ -128,21 +146,22 @@ a.back-btn:hover {
 }
 
 .hero-content {
-    max-width: 760px;
+    max-width: 780px;
 }
 
 .hero h1 {
-    font-size: 42px;
+    font-size: 46px;
     margin-bottom: 10px;
 }
 
 .hero p {
     margin: 20px 0;
     color: #94a3b8;
+    font-size: 18px;
 }
 
 .hero-actions {
-    margin-top: 25px;
+    margin-top: 28px;
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -150,9 +169,9 @@ a.back-btn:hover {
 }
 
 .hero-secondary {
-    padding: 12px 20px;
+    padding: 14px 22px;
     border: 1px solid #60a5fa;
-    border-radius: 8px;
+    border-radius: 10px;
     color: #60a5fa;
     text-decoration: none;
 }
@@ -216,7 +235,7 @@ p {
     color: #94a3b8;
 }
 
-/* FORMULÁRIOS GERAIS / REGISTER */
+/* FORMULÁRIOS / REGISTER */
 .form-section {
     display: flex;
     justify-content: center;
@@ -266,7 +285,6 @@ p {
     border-color: #60a5fa;
 }
 
-/* PRIVACY */
 .privacy-text {
     margin-top: 20px;
     font-size: 12px;
@@ -276,7 +294,7 @@ p {
 
 /* CONTACT PAGE */
 .contact-section {
-    min-height: calc(100vh - 82px);
+    min-height: calc(100vh - 110px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -291,6 +309,23 @@ p {
     border-radius: 14px;
     text-align: center;
     border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.contact-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.contact-logo img {
+    width: 160px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .contact-container h1 {
@@ -379,18 +414,33 @@ p {
 
 .login-card {
     width: 100%;
-    max-width: 380px;
+    max-width: 420px;
     background: #0f172a;
-    padding: 32px;
-    border-radius: 14px;
+    padding: 36px;
+    border-radius: 16px;
     border: 1px solid rgba(96, 165, 250, 0.18);
 }
 
-.login-card .logo {
-    text-align: center;
-    margin-bottom: 25px;
+/* LOGO LOGIN */
+.login-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 28px;
 }
 
+.login-logo img {
+    width: 170px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* PASSWORD */
 .password-wrapper {
     display: flex;
     align-items: center;
@@ -507,6 +557,11 @@ th {
         gap: 15px;
     }
 
+    .logo img,
+    .logo-header img {
+        width: 140px;
+    }
+
     .menu {
         display: flex;
         flex-wrap: wrap;
@@ -539,6 +594,11 @@ th {
     .form-container,
     .login-card {
         padding: 24px;
+    }
+
+    .login-logo img,
+    .contact-logo img {
+        width: 140px;
     }
 
     table {

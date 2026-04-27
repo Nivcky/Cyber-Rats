@@ -1,10 +1,11 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request, session
 import sqlite3
 import numpy as np
 from datetime import datetime
 import random
 
 app = Flask(__name__)
+app.secret_key = "cyber-rats-chave-secreta"
 
 # ================= BANCO =================
 def get_db():
@@ -14,6 +15,7 @@ def init_db():
     conn = get_db()
     cursor = conn.cursor()
 
+    # TABELA LOGS
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS logs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,6 +28,23 @@ def init_db():
         tentativas INTEGER
     )
     """)
+
+    # TABELA USUÁRIOS
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS usuarios (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT UNIQUE,
+        senha TEXT
+    )
+    """)
+
+    # USUÁRIO TESTE (se não existir)
+    cursor.execute("SELECT * FROM usuarios WHERE email = ?", ("teste@cyber.com",))
+    if not cursor.fetchone():
+        cursor.execute(
+            "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
+            ("teste@cyber.com", "123456")
+        )
 
     conn.commit()
     conn.close()
@@ -99,6 +118,9 @@ def home():
 
 @app.route("/dashboard")
 def dashboard():
+    if not session.get("logado"):
+        return redirect(url_for("login"))
+
     conn = get_db()
     cursor = conn.cursor()
 
@@ -120,20 +142,69 @@ def dashboard():
 
 @app.route("/simular")
 def simular():
+    if not session.get("logado"):
+        return redirect(url_for("login"))
+
     gerar_simulacao()
     return redirect(url_for("dashboard"))
 
-# LOGIN
-@app.route("/login")
+# ================= LOGIN =================
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        senha = request.form.get("senha")
+
+        conn = get_db()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "SELECT * FROM usuarios WHERE email = ? AND senha = ?",
+            (email, senha)
+        )
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            session["logado"] = True
+            session["usuario"] = email
+            return redirect(url_for("home"))
+
     return render_template("login.html")
 
-# REGISTER (AGORA EXISTE DE VERDADE)
-@app.route("/register")
+# ================= REGISTER =================
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        email = request.form.get("email")
+        senha = request.form.get("senha")
+
+        try:
+            conn = get_db()
+            cursor = conn.cursor()
+
+            cursor.execute(
+                "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
+                (email, senha)
+            )
+
+            conn.commit()
+            conn.close()
+
+            return redirect(url_for("login"))
+
+        except:
+            return "Usuário já existe 👀"
+
     return render_template("register.html")
 
-# CONTATO (se ainda quiser separado)
+# ================= LOGOUT =================
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
+
+# ================= CONTATO =================
 @app.route("/contato")
 def contato():
     return render_template("contact.html")

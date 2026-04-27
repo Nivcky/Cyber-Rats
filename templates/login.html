@@ -8,28 +8,32 @@
 
 <body class="login-page">
 
+<div class="top-bar">
+    <a href="{{ url_for('home') }}" class="back-btn">← Voltar ao início</a>
+</div>
+
 <div class="login-container">
 
-    <!-- LADO ESQUERDO -->
     <div class="login-left"></div>
 
-    <!-- LADO DIREITO -->
     <div class="login-right">
         <div class="login-card">
 
-            <h2 class="logo">Cyber Rats 🐭🔐</h2>
+            <div class="login-logo">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Cyber Rats">
+            </div>
 
-            <form action="#" method="post">
+            <form method="POST" action="{{ url_for('login') }}">
 
                 <div class="form-group">
                     <label>E-mail</label>
-                    <input type="email" placeholder="seu@email.com" required>
+                    <input type="email" name="email" placeholder="seu@email.com" required>
                 </div>
 
                 <div class="form-group">
                     <label>Senha</label>
                     <div class="password-wrapper">
-                        <input type="password" id="senha" placeholder="••••••••" required>
+                        <input type="password" name="senha" id="senha" placeholder="••••••••" required>
                         <span class="toggle-password" onclick="toggleSenha()">👁</span>
                     </div>
                 </div>
@@ -38,10 +42,10 @@
                     <a href="#">Esqueci minha senha</a>
                 </div>
 
-                <button type="submit" class="btn">Acessar</button>
+                <button type="submit" class="btn-login">Acessar</button>
 
                 <p class="register-link">
-                    Não tem conta? 
+                    <span>Não tem conta?</span>
                     <a href="{{ url_for('register') }}" class="link-highlight">Cadastre-se</a>
                 </p>
 
