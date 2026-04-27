@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard CyberRats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <h2>CyberRats 🔐 | Monitoramento - Essence Beauty</h2>
+</nav>
+
+<!-- VOLTAR PARA INÍCIO -->
+<div class="top-bar">
+    <a href="{{ url_for('home') }}" class="back-btn">← Voltar ao início</a>
+</div>
+
+<!-- CARDS -->
+<div class="cards">
+    <div class="card green">Total: {{ total }}</div>
+    <div class="card orange">Suspeitos: {{ suspeitos }}</div>
+    <div class="card red">Críticos: {{ criticos }}</div>
+</div>
+
+<!-- BOTÃO CORRETO -->
+<div class="actions">
+    <a href="{{ url_for('simular') }}" class="btn btn-dashboard">Simular Acesso</a>
+</div>
+
+<!-- TABELA -->
+<table>
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Data</th>
+            <th>Local</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if logs %}
+            {% for log in logs %}
+            <tr>
+                <td>{{ log[0] }}</td>
+                <td>{{ log[1] }}</td>
+                <td>{{ log[2] }}</td>
+                <td>{{ log[3] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">Nenhum registro encontrado</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+</body>
+</html>

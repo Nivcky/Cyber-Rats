@@ -5,8 +5,10 @@
     <title>Cyber Rats</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
+<!-- HEADER -->
 <header class="header">
     <div class="container">
 
@@ -15,46 +17,81 @@
         </div>
 
         <nav class="menu">
-            <a href="#">Início</a>
+            <a href="{{ url_for('home') }}">Início</a>
             <a href="#sobre">Sobre</a>
             <a href="#servicos">Serviços</a>
-            <a href="#contato">Contato</a>
+            <a href="{{ url_for('dashboard') }}">Monitoramento</a>
         </nav>
 
         <div class="actions">
-            <a href="#" class="login">Login</a>
-            <a href="#" class="btn">Fale conosco</a>
+            <a href="{{ url_for('login') }}" class="login">Login</a>
+            <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
         </div>
 
     </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
     <div class="hero-content">
         <h1>Protegendo sua empresa contra ameaças digitais</h1>
         <p>Soluções avançadas em cibersegurança para empresas modernas</p>
-        <a href="#" class="hero-btn">Fale com um especialista</a>
+
+        <div class="hero-actions">
+            <a href="{{ url_for('contato') }}" class="hero-btn">Fale com um especialista</a>
+            <a href="{{ url_for('dashboard') }}" class="hero-secondary">Ver monitoramento</a>
+        </div>
     </div>
 </section>
 
+<!-- SOBRE -->
 <section id="sobre" class="section">
     <h2>Sobre nós</h2>
-    <p>Somos especialistas em cibersegurança, oferecendo soluções completas para proteção de dados e prevenção de ataques.</p>
+    <p>
+        Somos uma empresa de cibersegurança dedicada a proteger ativos digitais e garantir a continuidade dos negócios 
+        em um cenário de ameaças constantes. Combinamos tecnologia, expertise e inteligência estratégica para antecipar 
+        riscos, neutralizar ataques e fortalecer a segurança das organizações.
+    </p>
 </section>
 
+<!-- SERVIÇOS -->
 <section id="servicos" class="section">
     <h2>Serviços</h2>
-    <ul>
-        <li>Análise de vulnerabilidades</li>
-        <li>Proteção contra phishing</li>
-        <li>Segurança em ERP e CRM</li>
-    </ul>
+
+    <div class="services-grid">
+        <div class="service-card">
+            <h3>Análise de vulnerabilidades</h3>
+            <p>Identificação de falhas críticas antes que sejam exploradas.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Proteção contra phishing</h3>
+            <p>Defesa ativa contra ataques de engenharia social.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Segurança em ERP e CRM</h3>
+            <p>Blindagem de sistemas empresariais estratégicos.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Consultoria em Segurança</h3>
+            <p>Planejamento e estratégia para proteção contínua.</p>
+        </div>
+    </div>
 </section>
 
-<section id="contato" class="section">
-    <h2>Contato</h2>
-    <p>Email: contato@cyberrats.com</p>
+<!-- CTA FINAL -->
+<section class="cta">
+    <h2>Pronto para proteger sua empresa?</h2>
+    <p>Fale com nossos especialistas e eleve seu nível de segurança digital.</p>
+    <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
 </section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>© 2026 Cyber Rats • Segurança Digital</p>
+</footer>
 
 </body>
 </html>

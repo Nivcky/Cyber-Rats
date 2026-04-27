@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Fale Conosco | Cyber Rats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+
+        <div class="logo">
+            <h2>Cyber Rats 🐭🔐</h2>
+        </div>
+
+        <a href="{{ url_for('home') }}" class="back-btn">← Voltar ao início</a>
+
+    </div>
+</header>
+
+<section class="contact-section">
+    <div class="contact-container">
+
+        <h1>Fale com nossos especialistas</h1>
+        <p>Estamos prontos para ajudar sua empresa.</p>
+
+        <form class="contact-form" method="POST" action="{{ url_for('contato') }}">
+
+            <input type="text" name="nome" placeholder="Nome" required>
+
+            <input type="email" name="email" placeholder="E-mail corporativo" required>
+
+            <input type="text" name="empresa" placeholder="Empresa" required>
+
+            <textarea name="mensagem" rows="5" placeholder="Como podemos ajudar?" required></textarea>
+
+            <button type="submit" class="btn">Enviar mensagem</button>
+
+        </form>
+
+        <div class="contact-info">
+            <p>📧 contato@cyberrats.com.br</p>
+            <p>📱 (11) 99999-9999</p>
+            <p>⏱ Resposta em até 24h úteis</p>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>
