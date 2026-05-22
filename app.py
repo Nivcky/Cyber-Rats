@@ -1,54 +1,64 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-import sqlite3
+import pymysql  # Trocado sqlite3 por pymysql
 import numpy as np
 from datetime import datetime
 import random
+import os  # Necessário para ler as variáveis de ambiente
 
 app = Flask(__name__)
-app.secret_key = "cyber-rats-chave-secreta"
+app.secret_key = os.environ.get("SECRET_KEY", "cyber-rats-chave-secreta")
 
-# ================= BANCO =================
+# ================= CONFIGURAÇÃO DO BANCO (MYSQL) =================
 def get_db():
-    return sqlite3.connect("seguranca.db")
+    # Ele tenta ler do Render, se não achar (local), usa os padrões de fallback
+    return pymysql.connect(
+        host=os.environ.get("DB_HOST", "localhost"),
+        user=os.environ.get("DB_USER", "root"),
+        password=os.environ.get("DB_PASSWORD", ""),
+        database=os.environ.get("DB_NAME", "cyber_rats"),
+        port=int(os.environ.get("DB_PORT", 3306)),
+        cursorclass=pymysql.cursors.DictCursor # Facilita o acesso por nome da coluna
+    )
 
 def init_db():
     conn = get_db()
     cursor = conn.cursor()
 
-    # TABELA LOGS
+    # No MySQL usamos AUTO_INCREMENT e mudamos tipos de TEXT para VARCHAR/LONGTEXT
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS logs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        usuario TEXT,
-        data TEXT,
-        localizacao TEXT,
-        status TEXT,
-        horario INTEGER,
-        local_flag INTEGER,
-        tentativas INTEGER
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        usuario VARCHAR(100),
+        data VARCHAR(50),
+        localizacao VARCHAR(50),
+        status VARCHAR(20),
+        horario INT,
+        local_flag INT,
+        tentativas INT
     )
     """)
 
-    # TABELA USUÁRIOS
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS usuarios (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT UNIQUE,
-        senha TEXT
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(255) UNIQUE,
+        senha VARCHAR(255)
     )
     """)
 
-    # USUÁRIO TESTE (se não existir)
-    cursor.execute("SELECT * FROM usuarios WHERE email = ?", ("teste@cyber.com",))
+    # No MySQL, o placeholder muda de '?' para '%s'
+    cursor.execute("SELECT * FROM usuarios WHERE email = %s", ("teste@cyber.com",))
     if not cursor.fetchone():
         cursor.execute(
-            "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
+            "INSERT INTO usuarios (email, senha) VALUES (%s, %s)",
             ("teste@cyber.com", "123456")
         )
 
     conn.commit()
+    cursor.close()
     conn.close()
 
+# Inicializa o banco ao rodar o app
 init_db()
 
 # ================= INSERÇÃO =================
@@ -56,12 +66,14 @@ def inserir_log(usuario, data, localizacao, status, horario, local_flag, tentati
     conn = get_db()
     cursor = conn.cursor()
 
+    # Mudado de '?' para '%s'
     cursor.execute("""
     INSERT INTO logs (usuario, data, localizacao, status, horario, local_flag, tentativas)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
     """, (usuario, data, localizacao, status, horario, local_flag, tentativas))
 
     conn.commit()
+    cursor.close()
     conn.close()
 
 # ================= IA =================
@@ -70,12 +82,15 @@ def calcular_perfil_normal():
     cursor = conn.cursor()
 
     cursor.execute("SELECT horario, local_flag, tentativas FROM logs WHERE status = 'OK'")
-    dados = cursor.fetchall()
+    dados_dict = cursor.fetchall() # Retorna uma lista de dicionários por causa do DictCursor
+    cursor.close()
     conn.close()
 
-    if len(dados) == 0:
+    if len(dados_dict) == 0:
         return np.array([0, 0, 1])
 
+    # Converte os dicionários de volta para uma lista de valores numéricos para o NumPy
+    dados = [[d['horario'], d['local_flag'], d['tentativas']] for d in dados_dict]
     return np.mean(np.array(dados), axis=0)
 
 pesos = np.array([0.4, 0.4, 0.2])
@@ -125,8 +140,13 @@ def dashboard():
     cursor = conn.cursor()
 
     cursor.execute("SELECT usuario, data, localizacao, status FROM logs ORDER BY id DESC")
-    logs = cursor.fetchall()
+    logs_dict = cursor.fetchall()
+    cursor.close()
     conn.close()
+
+    # Como usamos DictCursor, convertemos para tupla para não quebrar seu HTML (ex: l[3] ou l.status)
+    # Se seu HTML usa l.usuario, l.data, você pode passar logs_dict direto sem converter!
+    logs = [(l['usuario'], l['data'], l['localizacao'], l['status']) for l in logs_dict]
 
     total = len(logs)
     suspeitos = sum(1 for l in logs if l[3] == "Suspeito")
@@ -158,11 +178,13 @@ def login():
         conn = get_db()
         cursor = conn.cursor()
 
+        # Mudado de '?' para '%s'
         cursor.execute(
-            "SELECT * FROM usuarios WHERE email = ? AND senha = ?",
+            "SELECT * FROM usuarios WHERE email = %s AND senha = %s",
             (email, senha)
         )
         user = cursor.fetchone()
+        cursor.close()
         conn.close()
 
         if user:
@@ -183,18 +205,20 @@ def register():
             conn = get_db()
             cursor = conn.cursor()
 
+            # Mudado de '?' para '%s'
             cursor.execute(
-                "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
+                "INSERT INTO usuarios (email, senha) VALUES (%s, %s)",
                 (email, senha)
             )
 
             conn.commit()
+            cursor.close()
             conn.close()
 
             return redirect(url_for("login"))
 
-        except:
-            return "Usuário já existe 👀"
+        except Exception as e:
+            return "Usuário já existe ou erro no banco 👀"
 
     return render_template("register.html")
 
