@@ -42,13 +42,13 @@ def init_db():
     """)
 
     cursor.execute(
-        "SELECT * FROM usuarios WHERE email = %s",
+        "SELECT * FROM usuarios WHERE email = ?",
         ("teste@cyber.com",)
     )
 
     if not cursor.fetchone():
         cursor.execute(
-            "INSERT INTO usuarios (email, senha) VALUES (%s, %s)",
+            "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
             ("teste@cyber.com", "123456")
         )
 
@@ -213,7 +213,7 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT * FROM usuarios WHERE email = %s AND senha = %s",
+            "SELECT * FROM usuarios WHERE email = ? AND senha = ?",
             (email, senha)
         )
 
@@ -245,7 +245,7 @@ def register():
             cursor = conn.cursor()
 
             cursor.execute(
-                "INSERT INTO usuarios (email, senha) VALUES (%s, %s)",
+                "INSERT INTO usuarios (email, senha) VALUES (?, ?)",
                 (email, senha)
             )
 
