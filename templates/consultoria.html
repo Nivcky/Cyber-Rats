@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultoria em Segurança | Cyber Rats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo_white.png') }}" alt="Cyber Rats">
+        </div>
+
+        <nav class="menu">
+            <a href="{{ url_for('home') }}">Início</a>
+            <a href="{{ url_for('home') }}#sobre">Sobre</a>
+            <a href="{{ url_for('home') }}#servicos">Serviços</a>
+
+            {% if session.get("logado") %}
+                <a href="{{ url_for('dashboard') }}">Monitoramento</a>
+            {% endif %}
+        </nav>
+
+        <div class="actions">
+            {% if session.get("logado") %}
+                <a href="{{ url_for('logout') }}" class="login">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login">Login</a>
+            {% endif %}
+
+            <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
+        </div>
+
+    </div>
+</header>
+
+<section class="analysis-hero">
+    <div class="analysis-hero-content">
+        <span class="tag">Diagnóstico estratégico</span>
+
+        <h1>Consultoria em Segurança</h1>
+
+        <p>
+            Planejamento e estratégia para proteção contínua, com análise de riscos,
+            priorização de melhorias e recomendações práticas para fortalecer a segurança digital.
+        </p>
+    </div>
+</section>
+
+<section class="consulting-dashboard">
+
+    <div class="dashboard-title">
+        <h2>Análise de maturidade em segurança</h2>
+        <p>
+            Diagnóstico aplicado a uma empresa de médio porte com processos digitais,
+            equipe administrativa e dados sensíveis.
+        </p>
+    </div>
+
+    <div class="analytics-cards">
+
+        <div class="analytics-card">
+            <span class="card-label">Maturidade geral</span>
+            <h3>62%</h3>
+            <p class="risk-medium-text">Intermediária</p>
+        </div>
+
+        <div class="analytics-card">
+            <span class="card-label">Risco estratégico</span>
+            <h3>74%</h3>
+            <p class="risk-high">Alto</p>
+        </div>
+
+        <div class="analytics-card">
+            <span class="card-label">Ações prioritárias</span>
+            <h3>8</h3>
+            <p>Medidas recomendadas</p>
+        </div>
+
+        <div class="analytics-card">
+            <span class="card-label">Prazo estimado</span>
+            <h3>90 dias</h3>
+            <p>Plano inicial de melhoria</p>
+        </div>
+
+    </div>
+
+    <div class="analysis-grid">
+
+        <div class="analysis-panel">
+            <h3>Diagnóstico por área</h3>
+
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>Área</th>
+                        <th>Situação</th>
+                        <th>Risco</th>
+                        <th>Prioridade</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Acessos e senhas</td>
+                        <td>Uso de senhas fracas e compartilhadas</td>
+                        <td>82%</td>
+                        <td><span class="status critical">Alta</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Treinamento da equipe</td>
+                        <td>Baixa conscientização contra golpes digitais</td>
+                        <td>76%</td>
+                        <td><span class="status critical">Alta</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Backup de dados</td>
+                        <td>Processo existente, porém sem validação frequente</td>
+                        <td>58%</td>
+                        <td><span class="status medium">Média</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Controle de permissões</td>
+                        <td>Usuários com acessos acima do necessário</td>
+                        <td>69%</td>
+                        <td><span class="status medium">Média</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Monitoramento</td>
+                        <td>Ausência de alertas automatizados</td>
+                        <td>73%</td>
+                        <td><span class="status critical">Alta</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="analysis-panel">
+            <h3>Mapa de maturidade</h3>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Políticas de acesso</span>
+                    <strong>45%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill medium" style="width: 45%;"></div>
+                </div>
+            </div>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Proteção contra phishing</span>
+                    <strong>38%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill high" style="width: 38%;"></div>
+                </div>
+            </div>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Backup e recuperação</span>
+                    <strong>64%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill medium" style="width: 64%;"></div>
+                </div>
+            </div>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Monitoramento contínuo</span>
+                    <strong>30%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill high" style="width: 30%;"></div>
+                </div>
+            </div>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Gestão de incidentes</span>
+                    <strong>52%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill medium" style="width: 52%;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="analysis-grid">
+
+        <div class="analysis-panel">
+            <h3>Principais vulnerabilidades estratégicas</h3>
+
+            <ul class="alert-list">
+                <li>
+                    <strong>Senhas compartilhadas:</strong>
+                    aumentam o risco de acesso indevido e dificultam a rastreabilidade.
+                </li>
+
+                <li>
+                    <strong>Falta de treinamento:</strong>
+                    colaboradores podem cair em golpes de phishing e engenharia social.
+                </li>
+
+                <li>
+                    <strong>Ausência de monitoramento:</strong>
+                    comportamentos suspeitos podem não ser identificados rapidamente.
+                </li>
+
+                <li>
+                    <strong>Permissões excessivas:</strong>
+                    usuários acessam informações além do necessário para sua função.
+                </li>
+            </ul>
+        </div>
+
+        <div class="analysis-panel">
+            <h3>Plano de ação recomendado</h3>
+
+            <ul class="recommendation-list">
+                <li>Implantar autenticação em dois fatores para acessos críticos.</li>
+                <li>Revisar permissões de usuários com base no princípio do menor privilégio.</li>
+                <li>Criar campanha interna de conscientização contra phishing.</li>
+                <li>Definir política de senhas fortes e troca periódica.</li>
+                <li>Estabelecer rotina de backup e teste de recuperação.</li>
+                <li>Monitorar acessos suspeitos e gerar alertas automáticos.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="analysis-panel strategy-panel">
+        <h3>Resumo consultivo</h3>
+
+        <p>
+            A análise indica que a empresa possui uma estrutura digital funcional,
+            porém ainda apresenta riscos relevantes em controle de acesso, treinamento da equipe,
+            monitoramento e prevenção contra engenharia social.
+        </p>
+
+        <p>
+            A recomendação inicial é adotar um plano de segurança contínuo em três etapas:
+            correção de acessos críticos, conscientização dos usuários e implantação de monitoramento
+            preventivo. Essa abordagem reduz a exposição a ataques e melhora a confiabilidade dos processos digitais.
+        </p>
+    </div>
+
+</section>
+
+<section class="cta">
+    <h2>Quer criar uma estratégia de segurança para sua empresa?</h2>
+    <p>Solicite uma análise inicial com a Cyber Rats.</p>
+    <a href="{{ url_for('contato') }}" class="btn">Fale com um especialista</a>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Cyber Rats • Segurança Digital</p>
+</footer>
+
+</body>
+</html>

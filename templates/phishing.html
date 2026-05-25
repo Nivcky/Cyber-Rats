@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Proteção contra Phishing | Cyber Rats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo_white.png') }}" alt="Cyber Rats">
+        </div>
+
+        <nav class="menu">
+            <a href="{{ url_for('home') }}">Início</a>
+            <a href="{{ url_for('home') }}#sobre">Sobre</a>
+            <a href="{{ url_for('home') }}#servicos">Serviços</a>
+
+            {% if session.get("logado") %}
+                <a href="{{ url_for('dashboard') }}">Monitoramento</a>
+            {% endif %}
+        </nav>
+
+        <div class="actions">
+            {% if session.get("logado") %}
+                <a href="{{ url_for('logout') }}" class="login">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login">Login</a>
+            {% endif %}
+
+            <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
+        </div>
+
+    </div>
+</header>
+
+<section class="service-hero">
+    <div class="service-hero-content">
+        <span class="tag">Solução Cyber Rats</span>
+
+        <h1>Proteção contra Phishing</h1>
+
+        <p>
+            Defesa ativa contra ataques de engenharia social, links falsos, mensagens fraudulentas
+            e tentativas de roubo de dados.
+        </p>
+
+        <a href="{{ url_for('contato') }}" class="hero-btn">Solicitar proteção</a>
+    </div>
+</section>
+
+<section class="service-detail">
+    <div class="service-detail-container">
+
+        <h2>Como funciona?</h2>
+
+        <p>
+            A proteção contra phishing atua na identificação, prevenção e orientação contra tentativas
+            de fraude digital. O objetivo é reduzir riscos causados por mensagens falsas, páginas clonadas,
+            links maliciosos e contatos suspeitos enviados por e-mail, WhatsApp, redes sociais ou outros canais.
+        </p>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Identificação de ameaças</h3>
+                <p>
+                    Analisamos mensagens, links e canais suspeitos para detectar possíveis golpes e tentativas
+                    de engenharia social.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>Prevenção de fraudes</h3>
+                <p>
+                    Criamos orientações e controles para evitar que usuários cliquem em links falsos ou compartilhem dados sensíveis.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>Conscientização</h3>
+                <p>
+                    Orientamos equipes sobre boas práticas para reconhecer tentativas de phishing e agir com segurança.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <h2>Principais riscos combatidos</h2>
+
+    <div class="services-grid">
+        <div class="service-card">
+            <h3>Links falsos</h3>
+            <p>Detecção de páginas e URLs criadas para roubar informações.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Mensagens fraudulentas</h3>
+            <p>Prevenção contra golpes enviados por WhatsApp, e-mail e redes sociais.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Roubo de credenciais</h3>
+            <p>Redução do risco de vazamento de senhas e acessos corporativos.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2>Sua empresa está preparada contra golpes digitais?</h2>
+    <p>Solicite uma análise inicial e fortaleça sua defesa contra phishing.</p>
+    <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Cyber Rats • Segurança Digital</p>
+</footer>
+
+</body>
+</html>

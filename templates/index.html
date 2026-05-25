@@ -66,25 +66,25 @@
     <h2>Serviços</h2>
 
     <div class="services-grid">
-        <div class="service-card">
-            <h3>Análise de vulnerabilidades</h3>
-            <p>Identificação de falhas críticas antes que sejam exploradas.</p>
-        </div>
+        <a href="{{ url_for('vulnerabilidades') }}" class="service-card service-link">
+    <h3>Análise de vulnerabilidades</h3>
+    <p>Identificação de falhas críticas antes que sejam exploradas.</p>
+</a>
 
-        <div class="service-card">
-            <h3>Proteção contra phishing</h3>
-            <p>Defesa ativa contra ataques de engenharia social.</p>
-        </div>
+        <a href="{{ url_for('phishing') }}" class="service-card service-link">
+    <h3>Proteção contra phishing</h3>
+    <p>Defesa ativa contra ataques de engenharia social.</p>
+</a>
 
-        <div class="service-card">
-            <h3>Segurança em ERP e CRM</h3>
-            <p>Blindagem de sistemas empresariais estratégicos.</p>
-        </div>
+        <a href="{{ url_for('erp_crm') }}" class="service-card service-link">
+    <h3>Segurança em ERP e CRM</h3>
+    <p>Blindagem de sistemas empresariais estratégicos.</p>
+</a>
 
-        <div class="service-card">
-            <h3>Consultoria em Segurança</h3>
-            <p>Planejamento e estratégia para proteção contínua.</p>
-        </div>
+        <a href="{{ url_for('consultoria') }}" class="service-card service-link">
+    <h3>Consultoria em Segurança</h3>
+    <p>Planejamento e estratégia para proteção contínua.</p>
+</a>
     </div>
 </section>
 

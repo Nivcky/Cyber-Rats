@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Segurança em ERP e CRM | Cyber Rats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo_white.png') }}" alt="Cyber Rats">
+        </div>
+
+        <nav class="menu">
+            <a href="{{ url_for('home') }}">Início</a>
+            <a href="{{ url_for('home') }}#sobre">Sobre</a>
+            <a href="{{ url_for('home') }}#servicos">Serviços</a>
+
+            {% if session.get("logado") %}
+                <a href="{{ url_for('dashboard') }}">Monitoramento</a>
+            {% endif %}
+        </nav>
+
+        <div class="actions">
+            {% if session.get("logado") %}
+                <a href="{{ url_for('logout') }}" class="login">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login">Login</a>
+            {% endif %}
+
+            <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
+        </div>
+
+    </div>
+</header>
+
+<section class="analysis-hero">
+    <div class="analysis-hero-content">
+        <span class="tag">Painel de análise</span>
+        <h1>Segurança em ERP e CRM</h1>
+        <p>
+            Blindagem de sistemas empresariais estratégicos por meio de análise de acessos,
+            riscos operacionais e vulnerabilidades críticas.
+        </p>
+    </div>
+</section>
+
+<section class="analysis-dashboard">
+
+    <div class="dashboard-title">
+        <h2>Visão geral da análise</h2>
+        <p>Indicadores de risco em módulos ERP e CRM.</p>
+    </div>
+
+    <div class="analytics-cards">
+
+        <div class="analytics-card">
+            <span class="card-label">Risco geral</span>
+            <h3>78%</h3>
+            <p class="risk-high">Alto</p>
+        </div>
+
+        <div class="analytics-card">
+            <span class="card-label">Acessos críticos</span>
+            <h3>12</h3>
+            <p>Usuários com permissões sensíveis</p>
+        </div>
+
+        <div class="analytics-card">
+            <span class="card-label">Alertas ativos</span>
+            <h3>5</h3>
+            <p>Falhas que exigem atenção</p>
+        </div>
+
+        <div class="analytics-card">
+            <span class="card-label">Módulos analisados</span>
+            <h3>4</h3>
+            <p>Financeiro, Estoque, Clientes e Agenda</p>
+        </div>
+
+    </div>
+
+    <div class="analysis-grid">
+
+        <div class="analysis-panel">
+            <h3>Matriz de risco por sistema</h3>
+
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>Sistema</th>
+                        <th>Módulo</th>
+                        <th>Risco</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>ERP</td>
+                        <td>Financeiro</td>
+                        <td>85%</td>
+                        <td><span class="status critical">Crítico</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>ERP</td>
+                        <td>Estoque</td>
+                        <td>58%</td>
+                        <td><span class="status medium">Moderado</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>CRM</td>
+                        <td>Clientes</td>
+                        <td>91%</td>
+                        <td><span class="status critical">Crítico</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>CRM</td>
+                        <td>Agendamentos</td>
+                        <td>67%</td>
+                        <td><span class="status medium">Moderado</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="analysis-panel">
+            <h3>Níveis de exposição</h3>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Dados de clientes</span>
+                    <strong>91%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill high" style="width: 91%;"></div>
+                </div>
+            </div>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Financeiro</span>
+                    <strong>85%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill high" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Agendamentos</span>
+                    <strong>67%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill medium" style="width: 67%;"></div>
+                </div>
+            </div>
+
+            <div class="risk-bar-group">
+                <div class="risk-bar-header">
+                    <span>Estoque</span>
+                    <strong>58%</strong>
+                </div>
+                <div class="risk-bar">
+                    <div class="risk-fill medium" style="width: 58%;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="analysis-grid">
+
+        <div class="analysis-panel">
+            <h3>Alertas identificados</h3>
+
+            <ul class="alert-list">
+                <li>
+                    <strong>Acesso excessivo ao CRM:</strong>
+                    usuários operacionais possuem acesso a dados sensíveis de clientes.
+                </li>
+
+                <li>
+                    <strong>Risco financeiro:</strong>
+                    permissões amplas no módulo financeiro do ERP aumentam exposição a fraudes.
+                </li>
+
+                <li>
+                    <strong>Agendamentos vulneráveis:</strong>
+                    canais externos podem ser explorados em ataques de phishing.
+                </li>
+
+                <li>
+                    <strong>Ausência de segmentação:</strong>
+                    permissões deveriam ser separadas por função e necessidade.
+                </li>
+            </ul>
+        </div>
+
+        <div class="analysis-panel">
+            <h3>Recomendações Cyber Rats</h3>
+
+            <ul class="recommendation-list">
+                <li>Aplicar princípio do menor privilégio nos acessos.</li>
+                <li>Separar permissões entre áreas administrativa, financeira e atendimento.</li>
+                <li>Ativar autenticação em dois fatores nos sistemas estratégicos.</li>
+                <li>Criptografar dados sensíveis armazenados no CRM.</li>
+                <li>Monitorar tentativas de acesso fora do padrão.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="cta">
+    <h2>Quer analisar os riscos do seu ERP e CRM?</h2>
+    <p>Solicite uma avaliação inicial com a Cyber Rats.</p>
+    <a href="{{ url_for('contato') }}" class="btn">Fale com um especialista</a>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Cyber Rats • Segurança Digital</p>
+</footer>
+
+</body>
+</html>

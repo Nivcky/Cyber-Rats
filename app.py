@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-import pymysql
+import sqlite3
 import numpy as np
 from datetime import datetime
 import random
@@ -9,17 +9,11 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "cyber-rats-chave-secreta")
 
 
-# ================= CONFIGURAÇÃO DO BANCO MYSQL / AIVEN =================
+# ================= CONFIGURAÇÃO DO BANCO SQLITE LOCAL =================
 def get_db():
-    return pymysql.connect(
-        host=os.environ.get("DB_HOST"),
-        user=os.environ.get("DB_USER"),
-        password=os.environ.get("DB_PASSWORD"),
-        database=os.environ.get("DB_NAME"),
-        port=int(os.environ.get("DB_PORT", 3306)),
-        ssl={"ssl": {}},
-        cursorclass=pymysql.cursors.DictCursor
-    )
+    conn = sqlite3.connect("seguranca.db")
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
 def init_db():
@@ -69,14 +63,14 @@ except Exception as e:
     print("Erro ao inicializar banco:", e)
 
 
-# ================= INSERÇÃO DE LOG =================
+# ================= INSERÇÃO =================
 def inserir_log(usuario, data, localizacao, status, horario, local_flag, tentativas):
     conn = get_db()
     cursor = conn.cursor()
 
     cursor.execute("""
-        INSERT INTO logs (usuario, data, localizacao, status, horario, local_flag, tentativas)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO logs (usuario, data, localizacao, status, horario, local_flag, tentativas)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     """, (usuario, data, localizacao, status, horario, local_flag, tentativas))
 
     conn.commit()
@@ -273,6 +267,30 @@ def register():
 def logout():
     session.clear()
     return redirect(url_for("home"))
+
+
+# ================= VULNERABILIDADES =================
+@app.route("/vulnerabilidades")
+def vulnerabilidades():
+    return render_template("vulnerabilidades.html")
+
+
+# ================= PHISHING =================
+@app.route("/phishing")
+def phishing():
+    return render_template("phishing.html")
+
+
+# ================= ERP E CRM =================
+@app.route("/erp-crm")
+def erp_crm():
+    return render_template("erp_crm.html")
+
+
+# ================= CONSULTORIA EM SEGURANÇA =================
+@app.route("/consultoria")
+def consultoria():
+    return render_template("consultoria.html")
 
 
 # ================= CONTATO =================

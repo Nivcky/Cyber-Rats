@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Análise de Vulnerabilidades | Cyber Rats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo_white.png') }}" alt="Cyber Rats">
+        </div>
+
+        <nav class="menu">
+            <a href="{{ url_for('home') }}">Início</a>
+            <a href="{{ url_for('home') }}#sobre">Sobre</a>
+            <a href="{{ url_for('home') }}#servicos">Serviços</a>
+
+            {% if session.get("logado") %}
+                <a href="{{ url_for('dashboard') }}">Monitoramento</a>
+            {% endif %}
+        </nav>
+
+        <div class="actions">
+            {% if session.get("logado") %}
+                <a href="{{ url_for('logout') }}" class="login">Sair</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login">Login</a>
+            {% endif %}
+
+            <a href="{{ url_for('contato') }}" class="btn">Fale conosco</a>
+        </div>
+
+    </div>
+</header>
+
+<section class="service-hero">
+    <div class="service-hero-content">
+        <span class="tag">Solução Cyber Rats</span>
+
+        <h1>Análise de Vulnerabilidades</h1>
+
+        <p>
+            Identificamos falhas críticas em sistemas, processos e acessos antes que sejam exploradas por atacantes.
+        </p>
+
+        <a href="{{ url_for('contato') }}" class="hero-btn">Solicitar análise</a>
+    </div>
+</section>
+
+<section class="service-detail">
+    <div class="service-detail-container">
+
+        <h2>Como funciona?</h2>
+
+        <p>
+            A análise de vulnerabilidades consiste em mapear possíveis pontos fracos na estrutura digital da empresa,
+            como falhas de configuração, acessos indevidos, senhas fracas, ausência de autenticação e exposição de dados.
+        </p>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Mapeamento</h3>
+                <p>Levantamos os principais sistemas, usuários, permissões e pontos de entrada.</p>
+            </div>
+
+            <div class="info-card">
+                <h3>Identificação de riscos</h3>
+                <p>Classificamos falhas conforme impacto, probabilidade e criticidade.</p>
+            </div>
+
+            <div class="info-card">
+                <h3>Recomendações</h3>
+                <p>Geramos um relatório com ações práticas para reduzir riscos.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="cta">
+    <h2>Quer descobrir os riscos da sua empresa?</h2>
+    <p>Fale com nossos especialistas e solicite uma análise inicial.</p>
+    <a href="{{ url_for('contato') }}" class="btn">Contato Comercial</a>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Cyber Rats • Segurança Digital</p>
+</footer>
+
+</body>
+</html>
